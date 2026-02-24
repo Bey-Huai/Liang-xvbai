@@ -1,0 +1,20 @@
+name: Daily Greetings
+
+on:
+  schedule:
+    - cron: "0 22 * * *"  # 对应北京时间早上6:00
+    - cron: "0 16 * * *"  # 对应北京时间凌晨0:00
+
+jobs:
+  trigger-greeting:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: pip install requests
+      - name: Trigger greeting
+        run: python greeting_trigger.py
